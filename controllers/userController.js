@@ -3,10 +3,10 @@ const User = require("../models/userModel");
 // Create User (POST)
 exports.createUser = async (req, res) => {
   try {
+    const user = new User(req.body);
     if (user) {
       return res.status(400).json({ message: "User already exists" });
     }
-    const user = new User(req.body);
     await user.save();
     res.status(201).json({
       message: "User created successfully",
@@ -76,25 +76,3 @@ exports.deleteUser = async (req, res) => {
 };
 
 
-// Search Users (GET)
-exports.searchUsers = async (req, res) => {
-    try {
-        const { query } = req.query;
-        if (!query) {
-            return res.status(400).json({ message: 'Query parameter is required' });
-        }
-
-        const users = await User.find({
-            $or: [
-                { firstname: { $regex: query, $options: 'i' } },
-                { lastname: { $regex: query, $options: 'i' } },
-                { email: { $regex: query, $options: 'i' } },
-                { mob: { $regex: query, $options: 'i' } }
-            ]
-        });
-
-        res.status(200).json(users);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
