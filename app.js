@@ -14,7 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
-const userRoutes = require('./routes/userRoutes');
+const userRoutes = require('./routes//userRoutes');
 app.use('/api', userRoutes);
 
 module.exports = app;
