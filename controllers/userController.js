@@ -23,10 +23,6 @@ exports.createEmployment = async (req, res) => {
       skills,
     } = req.body;
 
-    // Validation
-    if (!employeeName || !employeeId || !gender || !dateOfBirth || !contactNumber) {
-      return res.status(400).json({ message: "All required fields must be provided" });
-    }
 
     const employment = new Employment({
       employeeName,
